@@ -1,22 +1,19 @@
-
 import algoliasearch from 'algoliasearch';
-
 const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_ADMIN_API_KEY);
 const index = client.initIndex('Products');
 
 const resultHit = hit => {
-  hit.categories.forEach((e) => {
-    // console.log(hit)
-    if (e === 'Cameras & Camcorders') {
-      console.log(hit.price)
+  hit.categories.forEach((cameraItem) => {
+    if (cameraItem === 'Cameras & Camcorders') {
+      let objectID = hit.objectID
       let discountAmount = hit.price - (hit.price * 0.2)
-      let price = Math.floor(+discountAmount) + '.00'
-      console.log(price)
-      index.partialUpdateObject(hit).then(({price}) => {
-        console.log(price);
+      let salePrice = Math.floor(+discountAmount) + '.00'
+
+      index.saveObject(hit).wait().then(({objectID}) => {
+        price: 'salePrice'
       });
     }
-  })
+  });
   return (`
     <a class="result-hit">
       <div class="result-hit__image-container">
