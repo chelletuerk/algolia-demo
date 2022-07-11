@@ -1,5 +1,10 @@
+
+import algoliasearch from 'algoliasearch';
+
+const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_ADMIN_API_KEY);
+const index = client.initIndex('Products');
+
 const resultHit = hit => {
-  let index = process.env.ALGOLIA_INDEX
   hit.categories.forEach((e) => {
     // console.log(hit)
     if (e === 'Cameras & Camcorders') {
@@ -7,9 +12,9 @@ const resultHit = hit => {
       let discountAmount = hit.price - (hit.price * 0.2)
       let price = Math.floor(+discountAmount) + '.00'
       console.log(price)
-      // index.partialUpdateObject(hit).then(({price}) => {
-      //   console.log(price);
-      // });
+      index.partialUpdateObject(hit).then(({price}) => {
+        console.log(price);
+      });
     }
   })
   return (`
