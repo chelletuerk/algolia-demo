@@ -8,9 +8,16 @@ const resultHit = hit => {
       let objectID = hit.objectID
       let discountAmount = hit.price - (hit.price * 0.2)
       let salePrice = Math.floor(+discountAmount) + '.00'
+      let object = { price: salePrice }
+      // index.saveObject(object).wait().then(({objectID}) => {
+      //   console.log('new object ', object)
+      // });
 
-      index.saveObject(hit).wait().then(({objectID}) => {
-        price: 'salePrice'
+      index.partialUpdateObject({
+        price: salePrice,
+        objectID: objectID
+      }).then(( object ) => {
+        console.log(object)
       });
     }
   });
