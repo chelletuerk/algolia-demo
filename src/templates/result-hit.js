@@ -20,7 +20,7 @@ const resultHit = hit => {
 //////////////transformed data being sent successfgully back to Algolia and
 //////////////subsequently rendered.
 
-   // index.saveObjects([{
+// index.saveObjects([{
       index.partialUpdateObjects([{
         price: salePrice,
         objectID: objectID
@@ -28,6 +28,15 @@ const resultHit = hit => {
         console.log('new objects ', objectID)
         console.log(hit.price)
       });
+
+      // index.partialUpdateObject({
+      //   price: salePrice,
+      //   objectID: objectID
+      // }).then(( objectID ) => {
+      //   console.log(objectID);
+      //   console.log(hit.price);
+      // });
+
     }
   });
   return (`
