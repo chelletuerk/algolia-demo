@@ -15,12 +15,23 @@ const resultHit = hit => {
 //////////////items and have yet to find a pattern as to why some pages show
 ////////////// adjusted prices while other pages remain as the original price.
 
-//////////////I do very much realize that the partialUpdatObject() method is
+//////////////I do very much realize that the partialUpdatObjects() method is
 //////////////not the correct method here, however I wanted to demonstrate the
 //////////////transformed data being sent successfgully back to Algolia and
 //////////////subsequently rendered.
 
-// index.saveObjects([{
+//set custom ranking & sorting
+    index.setSettings({
+      customRanking: [
+        'desc(popularity)',
+        'desc(brand)',
+        'desc(rating)'
+      ]
+      }).then(() => {
+        //done
+      });
+
+      // index.saveObjects([{
       index.partialUpdateObjects([{
         price: salePrice,
         objectID: objectID
@@ -28,15 +39,6 @@ const resultHit = hit => {
         console.log('new objects ', objectID)
         console.log(hit.price)
       });
-
-      // index.partialUpdateObject({
-      //   price: salePrice,
-      //   objectID: objectID
-      // }).then(( objectID ) => {
-      //   console.log(objectID);
-      //   console.log(hit.price);
-      // });
-
     }
   });
   return (`

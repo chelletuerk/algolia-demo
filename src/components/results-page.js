@@ -1,13 +1,27 @@
 import algoliasearch from 'algoliasearch';
 import instantsearch from 'instantsearch.js';
-import { searchBox, hits, pagination, refinementList } from 'instantsearch.js/es/widgets';
+import { searchBox, hits, pagination, refinementList, configure } from 'instantsearch.js/es/widgets';
 import resultHit from '../templates/result-hit';
+const aa = require("search-insights")
+
+aa('init', {
+  appId: process.env.ALGOLIA_APP_ID,
+  apiKey: process.env.ALGOLIA_API_KEY
+})
+
+//fix requst payload
+// aa('clickedObjectIDs', {
+//   userToken: 'user-1', // required for Node.js
+//   index: process.env.ALGOLIA_INDEX,
+//   eventName: 'click events',
+//   objectIDs: ['objectID1', 'objectID2']
+// });
+
 
 /**
  * @class ResultsPage
  * @description Instant Search class to display content on main page
  */
- 
 class ResultPage {
   constructor() {
     this._registerClient();
@@ -20,8 +34,6 @@ class ResultPage {
    * Handles creating the search client and creating an instance of instant search
    * @return {void}
    */
-   // register insights token/user
-
   _registerClient() {
     this._searchClient = algoliasearch(
       process.env.ALGOLIA_APP_ID,
@@ -41,6 +53,10 @@ class ResultPage {
    */
   _registerWidgets() {
     this._searchInstance.addWidgets([
+      configure({
+        hitsPerPage: 20,
+        clickAnalytics: true,
+      }),
       searchBox({
         container: '#searchbox',
       }),
