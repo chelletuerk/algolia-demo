@@ -20,16 +20,16 @@ const resultHit = hit => {
 //////////////transformed data being sent successfgully back to Algolia and
 //////////////subsequently rendered.
 
-//set custom ranking 
-    // index.setSettings({
-    //   customRanking: [
-    //     'desc(brand)',
-    //     'desc(popularity)',
-    //     'desc(rating)'
-    //   ]
-    //   }).then(() => {
-    //     //done
-    //   });
+//set custom ranking & sorting
+    index.setSettings({
+      customRanking: [
+        'desc(popularity)',
+        'desc(brand)',
+        'desc(rating)'
+      ]
+      }).then(() => {
+        //done
+      });
 
       // index.saveObjects([{
       index.partialUpdateObjects([{

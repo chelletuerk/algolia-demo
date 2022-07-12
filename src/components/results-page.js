@@ -2,31 +2,20 @@ import algoliasearch from 'algoliasearch';
 import instantsearch from 'instantsearch.js';
 import { searchBox, hits, pagination, refinementList, configure } from 'instantsearch.js/es/widgets';
 import resultHit from '../templates/result-hit';
-
-// If you include Insights in your HTML,
-// comment out the following line
 const aa = require("search-insights")
 
 aa('init', {
   appId: process.env.ALGOLIA_APP_ID,
   apiKey: process.env.ALGOLIA_API_KEY
 })
-// Supported since search-insights@2.2.0
-// See https://github.com/algolia/search-insights.js#batch-events for more information.
-// aa('sendEvents', [
-//   {
-//     eventType,
-//     eventName,
-//     userToken,
-//   }
-// ]);
 
-aa('clickedObjectIDs', {
-  userToken: 'user-1', // required for Node.js
-  index: process.env.ALGOLIA_INDEX,
-  eventName: 'click events',
-  objectIDs: ['objectID1', 'objectID2']
-});
+//fix requst payload
+// aa('clickedObjectIDs', {
+//   userToken: 'user-1', // required for Node.js
+//   index: process.env.ALGOLIA_INDEX,
+//   eventName: 'click events',
+//   objectIDs: ['objectID1', 'objectID2']
+// });
 
 
 /**
