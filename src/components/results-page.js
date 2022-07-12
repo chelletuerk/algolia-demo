@@ -1,13 +1,13 @@
 import algoliasearch from 'algoliasearch';
 import instantsearch from 'instantsearch.js';
 import { searchBox, hits, pagination, refinementList } from 'instantsearch.js/es/widgets';
-
 import resultHit from '../templates/result-hit';
 
 /**
  * @class ResultsPage
  * @description Instant Search class to display content on main page
  */
+ 
 class ResultPage {
   constructor() {
     this._registerClient();
@@ -20,6 +20,8 @@ class ResultPage {
    * Handles creating the search client and creating an instance of instant search
    * @return {void}
    */
+   // register insights token/user
+
   _registerClient() {
     this._searchClient = algoliasearch(
       process.env.ALGOLIA_APP_ID,
