@@ -2,12 +2,6 @@ import algoliasearch from 'algoliasearch';
 import instantsearch from 'instantsearch.js';
 import { searchBox, hits, pagination, refinementList, configure } from 'instantsearch.js/es/widgets';
 import resultHit from '../templates/result-hit';
-const aa = require("search-insights")
-
-aa('init', {
-  appId: process.env.ALGOLIA_APP_ID,
-  apiKey: process.env.ALGOLIA_API_KEY
-})
 
 //fix requst payload
 // aa('clickedObjectIDs', {
