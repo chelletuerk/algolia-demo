@@ -28,9 +28,10 @@ const resultHit = hit => {
 
 //////////////I certainly would've like to complete more of the tasks and
 //////////////find that I'm juuuust starting to wrap my head around what's
-//////////////required for events. I plan to continue tinkering with both the
-//////////////API and middleware -- see which one I can get working first...
-//////////////then do it again using the other method. :)
+//////////////required for events. I'm quite sure I dove in head first and was
+//////////////just trying too many things at once. I plan to continue tinkering
+//////////////with both the API and middleware -- see which one I can get
+//////////////working first...then do it again using the other method. :)
 
     aa('init', {
       appId: process.env.ALGOLIA_APP_ID,
@@ -39,7 +40,7 @@ const resultHit = hit => {
 
     aa('sendEvents', [
     {
-      userToken: "user-1", 
+      userToken: "user-1",
       index: process.env.ALGOLIA_INDEX,
       eventName: 'sale_item_view',
       objectIDs: [objectID]
