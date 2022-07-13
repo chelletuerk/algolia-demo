@@ -1,6 +1,7 @@
 import algoliasearch from 'algoliasearch';
 const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_ADMIN_API_KEY);
 const index = client.initIndex('Products');
+const aa = require("search-insights");
 
 const resultHit = hit => {
   hit.categories.forEach((cameraItem) => {
@@ -9,16 +10,42 @@ const resultHit = hit => {
       let discountAmount = hit.price - (hit.price * 0.2)
       let salePrice = Math.floor(+discountAmount) + '.00'
 //////////////The saveObjects() method breaks on refresh while the
-//////////////partialUpdateObjects() method works everytime, but decrements the
+//////////////partialUpdateObjects() method works everytime, yet decrements the
 //////////////price with every refresh. Neither method works on load. I can't
 //////////////seem to get the salePrice to apply to the entire array of camera
-//////////////items and have yet to find a pattern as to why some pages show
-////////////// adjusted prices while other pages remain as the original price.
+//////////////items on the first load. It seems an item must be viewed before
+//////////////the original price is adjusted to the sale price.
 
 //////////////I do very much realize that the partialUpdatObjects() method is
 //////////////not the correct method here, however I wanted to demonstrate the
 //////////////transformed data being sent successfgully back to Algolia and
 //////////////subsequently rendered.
+
+//////////////Additionally, I want to make mention of the lack of both click
+//////////////and conversion events. I was having a heck of a time! My attempt
+//////////////entailed grabbing the objectID and pulgging that into my
+//////////////sendEvents().
+
+//////////////I certainly would've like to complete more of the tasks and
+//////////////find that I'm juuuust starting to wrap my head around what's
+//////////////required for events. I'm quite sure I dove in head first and was
+//////////////just trying too many things at once. I plan to continue tinkering
+//////////////with both the API and middleware -- see which one I can get
+//////////////working first...then do it again using the other method. :)
+
+    aa('init', {
+      appId: process.env.ALGOLIA_APP_ID,
+      apiKey: process.env.ALGOLIA_API_KEY
+    })
+
+    aa('sendEvents', [
+    {
+      userToken: "user-1",
+      index: process.env.ALGOLIA_INDEX,
+      eventName: 'sale_item_view',
+      objectIDs: [objectID]
+      }
+    ]);
 
 //set custom ranking & sorting
     index.setSettings({
