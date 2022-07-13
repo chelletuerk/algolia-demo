@@ -1,5 +1,7 @@
 import algoliasearch from 'algoliasearch';
-const client = algoliasearch(process.env.ALGOLIA_APP_ID, process.env.ALGOLIA_ADMIN_API_KEY);
+const client = algoliasearch(
+  process.env.ALGOLIA_APP_ID,
+  process.env.ALGOLIA_ADMIN_API_KEY);
 const index = client.initIndex('Products');
 const aa = require("search-insights");
 
@@ -9,28 +11,31 @@ const resultHit = hit => {
       let objectID = hit.objectID
       let discountAmount = hit.price - (hit.price * 0.2)
       let salePrice = Math.floor(+discountAmount) + '.00'
-//////////////The saveObjects() method breaks on refresh while the
+
+//////////////The saveObjects() method immediately breaks on refresh while the
 //////////////partialUpdateObjects() method works everytime, yet decrements the
-//////////////price with every refresh. Neither method works on load. I can't
-//////////////seem to get the salePrice to apply to the entire array of camera
+//////////////price with each refresh. Neither method works on load. I can't
+//////////////seem to get the 'salePrice' to apply to the entire array of camera
 //////////////items on the first load. It seems an item must be viewed before
 //////////////the original price is adjusted to the sale price.
 
 //////////////I do very much realize that the partialUpdatObjects() method is
 //////////////not the correct method here, however I wanted to demonstrate the
-//////////////transformed data being sent successfgully back to Algolia and
+//////////////transformed data being sent successfully back to Algolia and
 //////////////subsequently rendered.
 
 //////////////Additionally, I want to make mention of the lack of both click
 //////////////and conversion events. I was having a heck of a time! My attempt
-//////////////entailed grabbing the objectID and pulgging that into my
-//////////////sendEvents().
+//////////////entailed attempting to send a view event by grabbing the objectID
+//////////////and plugging that into my sendEvents() method. It's not currently
+//////////////functional.
 
-//////////////I certainly would've like to complete more of the tasks and
-//////////////find that I'm juuuust starting to wrap my head around what's
-//////////////required for events. I'm quite sure I dove in head first and was
+
+//////////////I certainly would've like to complete more of the assigned tasks.
+//////////////I'm juuuust starting to wrap my head around what's required for
+//////////////registering events. I'm quite sure I dove in too deep head first,
 //////////////just trying too many things at once. I plan to continue tinkering
-//////////////with both the API and middleware -- see which one I can get
+//////////////with both the API and middleware events -- see which one I can get
 //////////////working first...then do it again using the other method. :)
 
     aa('init', {
@@ -63,8 +68,9 @@ const resultHit = hit => {
         price: salePrice,
         objectID: objectID
       }]).then((objectID) => {
-        console.log('new objects ', objectID)
-        console.log(hit.price)
+        console.log('sale item hits: ', objectID)
+        console.log('original price: ', hit.price)
+        console.log('sale price: ', salePrice)
       });
     }
   });
