@@ -3,14 +3,13 @@ import instantsearch from 'instantsearch.js';
 import { searchBox, hits, pagination, refinementList, configure } from 'instantsearch.js/es/widgets';
 import resultHit from '../templates/result-hit';
 
-//fix requst payload
+//request payload for click events
 // aa('clickedObjectIDs', {
 //   userToken: 'user-1', // required for Node.js
 //   index: process.env.ALGOLIA_INDEX,
 //   eventName: 'click events',
 //   objectIDs: ['objectID1', 'objectID2']
 // });
-
 
 /**
  * @class ResultsPage
